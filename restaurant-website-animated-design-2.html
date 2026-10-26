@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAVORA | Fine Dining & Culinary Artistry</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Playfair Display & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&display=swap" rel="stylesheet">
+  <!-- Tailwind Configuration -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              black: '#0b0c10',
+              dark: '#12141a',
+              card: '#1a1d24',
+              cream: '#f4efe6',
+              gold: '#d4af37',
+              goldHover: '#b89528',
+              accent: '#e65100', // Tomato orange accent
+              accentMuted: 'rgba(230, 81, 0, 0.15)',
+              muted: '#8e95a5'
+            }
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'serif'],
+            sans: ['Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <!-- Custom CSS for 3D Typography, Floating Physics, Cursor Badge & Scroll Reveal Animations -->
+  <style>
+    /* Global Styling & Reset */
+    body {
+      background-color: #0b0c10;
+      color: #f4efe6;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* 3D Perspective Containers */
+    .perspective-1000 {
+      perspective: 1000px;
+    }
+    .perspective-800 {
+      perspective: 800px;
+    }
+
+    /* 3D Typography Layered Shadows & Extrusions */
+    .text-3d-hero {
+      color: #f4efe6;
+      text-shadow: 
+        0 1px 0 #d4af37,
+        0 2px 0 #b89528,
+        0 3px 0 #9c7b1c,
+        0 4px 0 #806211,
+        0 5px 10px rgba(0, 0, 0, 0.8),
+        0 10px 20px rgba(0, 0, 0, 0.9);
+      transition: transform 0.15s ease-out, text-shadow 0.3s ease;
+      transform-style: preserve-3d;
+    }
+
+    .text-3d-accent {
+      color: #d4af37;
+      text-shadow: 
+        0 1px 0 #b89528,
+        0 2px 0 #806211,
+        0 3px 8px rgba(212, 175, 55, 0.3),
+        0 8px 16px rgba(0, 0, 0, 0.9);
+      transform-style: preserve-3d;
+    }
+
+    .text-3d-philosophy {
+      text-shadow: 
+        1px 1px 0px #d4af37,
+        2px 2px 0px rgba(0,0,0,0.8),
+        4px 4px 12px rgba(0,0,0,0.9);
+    }
+
+    .text-3d-menu {
+      text-shadow: 
+        0 2px 4px rgba(0,0,0,0.7),
+        0 6px 15px rgba(212, 175, 55, 0.2);
+    }
+
+    .text-3d-subtle {
+      text-shadow: 0 4px 12px rgba(0,0,0,0.6);
+    }
+
+    /* Glassmorphism Cards */
+    .glass-card {
+      background: rgba(26, 29, 36, 0.65);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(212, 175, 55, 0.12);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .glass-card:hover {
+      border-color: rgba(212, 175, 55, 0.35);
+      box-shadow: 0 25px 50px rgba(212, 175, 55, 0.1);
+    }
+
+    /* Dynamic Interactive Floating Base Layer */
+    .floating-container {
+      position: absolute;
+      pointer-events: none;
+      z-index: 20;
+      will-change: transform;
+    }
+
+    /* Keyframe Animations for Auto Continuous Fast Floating Movement */
+    @keyframes fastFloatA {
+      0% { transform: translate(0px, 0px) rotate(0deg); }
+      25% { transform: translate(-18px, -24px) rotate(6deg); }
+      50% { transform: translate(15px, -35px) rotate(-5deg); }
+      75% { transform: translate(22px, -12px) rotate(4deg); }
+      100% { transform: translate(0px, 0px) rotate(0deg); }
+    }
+
+    @keyframes fastFloatB {
+      0% { transform: translate(0px, 0px) rotate(0deg); }
+      30% { transform: translate(25px, -30px) rotate(-8deg); }
+      60% { transform: translate(-20px, -18px) rotate(6deg); }
+      80% { transform: translate(12px, -38px) rotate(-4deg); }
+      100% { transform: translate(0px, 0px) rotate(0deg); }
+    }
+
+    @keyframes fastFloatC {
+      0% { transform: translate(0px, 0px) scale(1); }
+      50% { transform: translate(-30px, -40px) scale(1.08) rotate(10deg); }
+      100% { transform: translate(0px, 0px) scale(1); }
+    }
+
+    .anim-float-1 { animation: fastFloatA 3.8s ease-in-out infinite; }
+    .anim-float-2 { animation: fastFloatB 4.2s ease-in-out infinite; }
+    .anim-float-3 { animation: fastFloatC 4.6s ease-in-out infinite; }
+
+    /* Lightweight Cursor Attached Glowing "MOVE" Badge */
+    #cursor-move-badge {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      will-change: transform;
+      transition: opacity 0.3s ease;
+    }
+
+    .glow-move-badge {
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.4) 0%, rgba(230, 81, 0, 0.25) 70%, rgba(0,0,0,0) 100%);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      box-shadow: 0 10px 25px rgba(212, 175, 55, 0.35), 0 0 15px rgba(230, 81, 0, 0.25);
+      border: 1px solid rgba(212, 175, 55, 0.7);
+    }
+
+    /* ELEMENTOR-STYLE SCROLL REVEAL ANIMATIONS */
+    .reveal-up {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-50px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(50px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal-scale {
+      opacity: 0;
+      transform: scale(0.9);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Active Animation State when Scrolled Into View */
+    .reveal-active {
+      opacity: 1 !important;
+      transform: translate(0, 0) scale(1) !important;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0b0c10;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #2a2e39;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #d4af37;
+    }
+
+    /* Reduced Motion Accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      .floating-container, .text-3d-hero, .text-3d-philosophy, .anim-float-1, .anim-float-2, .anim-float-3,
+      .reveal-up, .reveal-left, .reveal-right, .reveal-scale {
+        transform: none !important;
+        transition: none !important;
+        animation: none !important;
+        opacity: 1 !important;
+      }
+      #cursor-move-badge { display: none; }
+    }
+  </style>
+</head>
+<body class="relative bg-brand-black text-brand-cream selection:bg-brand-gold selection:text-brand-black">
+
+  <!-- ========================================== -->
+  <!-- CURSOR ATTACHED FLOATING "MOVE" BADGE      -->
+  <!-- ========================================== -->
+  <div id="cursor-move-badge">
+    <div class="glow-move-badge w-20 h-20 md:w-24 md:h-24 rounded-full flex flex-col items-center justify-center text-brand-cream font-bold tracking-widest text-xs select-none">
+      <span class="text-brand-gold drop-shadow-md">MOVE</span>
+      <svg class="w-3.5 h-3.5 mt-0.5 text-brand-gold animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+      </svg>
+    </div>
+  </div>
+
+
+  <!-- ========================================== -->
+  <!-- NAVIGATION BAR                             -->
+  <!-- ========================================== -->
+  <nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 py-5 px-6 md:px-12 flex justify-between items-center border-b border-transparent">
+    <a href="#hero" class="flex items-center gap-2 group">
+      <svg class="w-8 h-8 text-brand-gold transition-transform duration-500 group-hover:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="12" cy="12" r="9" stroke="currentColor"/>
+        <path d="M12 3v18M3 12h18" stroke="currentColor" stroke-opacity="0.3"/>
+        <circle cx="12" cy="12" r="3" fill="#d4af37"/>
+      </svg>
+      <span class="font-serif text-2xl font-bold tracking-widest text-brand-cream group-hover:text-brand-gold transition-colors">SAVORA</span>
+    </a>
+
+    <!-- Desktop Nav Links -->
+    <div class="hidden lg:flex items-center space-x-8 text-sm font-medium tracking-wider text-brand-cream/80">
+      <a href="#philosophy" class="hover:text-brand-gold transition-colors py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-brand-gold hover:after:w-full after:transition-all">PHILOSOPHY</a>
+      <a href="#menu" class="hover:text-brand-gold transition-colors py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-brand-gold hover:after:w-full after:transition-all">MENU</a>
+      <a href="#ingredients" class="hover:text-brand-gold transition-colors py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-brand-gold hover:after:w-full after:transition-all">INGREDIENTS</a>
+      <a href="#kitchen" class="hover:text-brand-gold transition-colors py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-brand-gold hover:after:w-full after:transition-all">KITCHEN</a>
+      <a href="#experience" class="hover:text-brand-gold transition-colors py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-brand-gold hover:after:w-full after:transition-all">EXPERIENCE</a>
+    </div>
+
+    <div class="hidden sm:flex items-center gap-4">
+      <button onclick="openModal('reservation-modal')" class="px-6 py-2.5 rounded-full bg-brand-gold hover:bg-brand-goldHover text-brand-black font-semibold text-xs tracking-widest uppercase transition-all shadow-lg hover:shadow-brand-gold/20 transform hover:-translate-y-0.5">
+        Reserve Table
+      </button>
+    </div>
+
+    <!-- Mobile Menu Button -->
+    <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="lg:hidden text-brand-cream focus:outline-none" aria-label="Toggle Menu">
+      <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path id="menu-icon-bars" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+  </nav>
+
+  <!-- Mobile Navigation Overlay -->
+  <div id="mobile-menu" class="fixed inset-0 bg-brand-black/95 backdrop-blur-xl z-40 hidden flex-col justify-center items-center space-y-8 text-xl font-serif">
+    <a href="#philosophy" onclick="toggleMobileMenu()" class="hover:text-brand-gold transition-colors">Philosophy</a>
+    <a href="#menu" onclick="toggleMobileMenu()" class="hover:text-brand-gold transition-colors">Signature Menu</a>
+    <a href="#ingredients" onclick="toggleMobileMenu()" class="hover:text-brand-gold transition-colors">Fresh Ingredients</a>
+    <a href="#kitchen" onclick="toggleMobileMenu()" class="hover:text-brand-gold transition-colors">Behind the Kitchen</a>
+    <a href="#experience" onclick="toggleMobileMenu()" class="hover:text-brand-gold transition-colors">Dining Experience</a>
+    <button onclick="toggleMobileMenu(); openModal('reservation-modal')" class="px-8 py-3 rounded-full bg-brand-gold text-brand-black font-sans text-sm font-semibold tracking-widest uppercase">
+      Reserve Table
+    </button>
+  </div>
+
+
+  <!-- ========================================== -->
+  <!-- 1. HERO BANNER SECTION                    -->
+  <!-- ========================================== -->
+  <section id="hero" class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden perspective-1000">
+    <!-- Atmospheric Background Layers -->
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-brand-card/40 via-brand-dark to-brand-black opacity-80"></div>
+    <div class="absolute w-96 h-96 bg-brand-gold/10 rounded-full blur-3xl top-1/4 left-1/2 -translate-x-1/2 pointer-events-none"></div>
+    <div class="absolute w-72 h-72 bg-brand-accent/10 rounded-full blur-3xl bottom-1/4 right-1/4 pointer-events-none"></div>
+
+    <!-- FLOATING RESTAURANT ELEMENTS -->
+    <!-- 1. Floating Teapot (Upper Left) -->
+    <div class="floating-container top-24 left-6 md:left-20" data-speed="-4.5">
+      <div class="anim-float-1">
+        <div class="p-3 bg-brand-card/30 backdrop-blur-md rounded-2xl border border-brand-gold/20 shadow-2xl">
+          <svg class="w-14 h-14 md:w-20 md:h-20 text-brand-gold" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M30 40 Q50 25 70 40 L75 65 Q50 85 25 65 Z" fill="rgba(212, 175, 55, 0.15)"/>
+            <path d="M40 25 L60 25 M50 20 L50 25" stroke-width="3"/>
+            <path d="M72 45 Q88 40 90 55 Q92 70 74 65" stroke-width="3"/>
+            <path d="M28 45 Q10 50 12 60 Q15 70 26 65" stroke-width="3"/>
+            <circle cx="50" cy="18" r="4" fill="#d4af37"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Floating Coffee / Tea Cup (Lower Left) -->
+    <div class="floating-container bottom-28 left-8 md:left-28" data-speed="5">
+      <div class="anim-float-2">
+        <div class="p-3 bg-brand-card/30 backdrop-blur-md rounded-2xl border border-brand-gold/20 shadow-2xl">
+          <svg class="w-12 h-12 md:w-18 md:h-18 text-brand-cream" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M25 40 L75 40 L68 70 Q50 82 32 70 Z" fill="rgba(244, 239, 230, 0.1)"/>
+            <path d="M75 45 Q88 45 88 58 Q88 70 70 68" stroke-width="3"/>
+            <path d="M15 82 L85 82" stroke-width="4" stroke-linecap="round"/>
+            <path d="M40 30 Q45 20 42 12 M52 30 Q57 20 54 12 M64 30 Q69 20 66 12" stroke="#d4af37" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Floating Wine Glass (Upper Right) -->
+    <div class="floating-container top-28 right-8 md:right-24" data-speed="-3.5">
+      <div class="anim-float-3">
+        <div class="p-3 bg-brand-card/30 backdrop-blur-md rounded-2xl border border-brand-gold/20 shadow-2xl">
+          <svg class="w-14 h-14 md:w-20 md:h-20 text-brand-gold" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M35 20 L65 20 L60 55 Q50 72 35 55 Z" fill="rgba(230, 81, 0, 0.2)"/>
+            <line x1="50" y1="65" x2="50" y2="88" stroke-width="3"/>
+            <line x1="35" y1="88" x2="65" y2="88" stroke-width="3"/>
+            <path d="M36 38 Q50 46 64 38" stroke="#e65100" stroke-width="2"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero Content Stage with Scroll Reveal -->
+    <div id="hero-stage" class="relative z-20 text-center px-4 max-w-5xl mx-auto transition-transform duration-150 ease-out reveal-up">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-gold/10 border border-brand-gold/30 text-brand-gold text-xs font-semibold tracking-widest uppercase mb-6">
+        <span class="w-2 h-2 rounded-full bg-brand-gold animate-pulse"></span>
+        Michelin Star Gastronomy
+      </div>
+
+      <!-- Main 3D Headline -->
+      <h1 id="hero-headline" class="font-serif text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold tracking-tight leading-none mb-8 text-3d-hero select-none cursor-default">
+        ELEVATE <br class="hidden sm:inline"/>
+        <span class="text-3d-accent font-italic">THE SENSES</span>
+      </h1>
+
+      <p class="font-sans text-base sm:text-lg md:text-xl text-brand-cream/75 max-w-2xl mx-auto font-light leading-relaxed mb-10 text-3d-subtle">
+        Where culinary precision meets immersive atmosphere. Taste the extraordinary in every crafted dish, curated by Master Chef Julian Vance.
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
+        <button onclick="openModal('reservation-modal')" class="w-full sm:w-auto px-8 py-4 rounded-full bg-brand-gold hover:bg-brand-goldHover text-brand-black font-semibold text-sm tracking-widest uppercase transition-all shadow-xl hover:shadow-brand-gold/30 hover:scale-105 active:scale-95">
+          Book Your Experience
+        </button>
+        <a href="#menu" class="w-full sm:w-auto px-8 py-4 rounded-full bg-transparent hover:bg-brand-cream/10 border border-brand-cream/30 text-brand-cream font-semibold text-sm tracking-widest uppercase transition-all hover:border-brand-gold hover:text-brand-gold">
+          Explore Tasting Menu
+        </a>
+      </div>
+    </div>
+
+    <!-- Scroll Down Indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-60 hover:opacity-100 transition-opacity z-20">
+      <span class="text-[10px] uppercase tracking-widest text-brand-cream/60">Scroll to Explore</span>
+      <div class="w-5 h-9 border-2 border-brand-cream/30 rounded-full flex justify-center p-1">
+        <div class="w-1 h-2 bg-brand-gold rounded-full animate-bounce"></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================================== -->
+  <!-- 2. OUR PHILOSOPHY SECTION                  -->
+  <!-- ========================================== -->
+  <section id="philosophy" class="relative py-28 px-6 md:px-16 border-t border-brand-gold/10 overflow-hidden">
+    <!-- Floating Cutlery Element -->
+    <div class="floating-container top-12 right-10" data-speed="-3">
+      <div class="anim-float-2 opacity-40">
+        <svg class="w-24 h-24 text-brand-gold" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M30 15 L35 45 L40 45 L45 15 M37 45 L37 90" stroke-width="2"/>
+          <path d="M65 15 Q80 35 65 50 L65 90" stroke-width="2" fill="rgba(212,175,55,0.1)"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <!-- Left Column Slide-In Left -->
+      <div class="lg:col-span-6 space-y-6 reveal-left">
+        <div class="text-brand-gold text-xs font-semibold tracking-widest uppercase">Our Craft & Vision</div>
+        <h2 class="font-serif text-4xl sm:text-5xl md:text-6xl font-bold leading-tight text-3d-philosophy">
+          Harmonizing Nature & <span class="italic text-brand-gold">Modern Alchemy</span>
+        </h2>
+        <p class="text-brand-cream/70 text-base md:text-lg leading-relaxed font-light">
+          At SAVORA, dining is elevated to an art form. We believe every ingredient tells a story of its origin—from organic hyper-local farms to pristine coastal waters. Our culinary philosophy centers on respecting tradition while fearlessly pushing boundaries through modern techniques.
+        </p>
+        <p class="text-brand-cream/60 text-sm md:text-base leading-relaxed font-light">
+          Every texture, aroma, and presentation is meticulously balanced to evoke deep emotion and lasting memories.
+        </p>
+
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-3 gap-6 pt-6 border-t border-brand-cream/10">
+          <div>
+            <div class="font-serif text-3xl md:text-4xl font-bold text-brand-gold">3</div>
+            <div class="text-xs text-brand-cream/60 mt-1 uppercase tracking-wider">Michelin Stars</div>
+          </div>
+          <div>
+            <div class="font-serif text-3xl md:text-4xl font-bold text-brand-gold">100%</div>
+            <div class="text-xs text-brand-cream/60 mt-1 uppercase tracking-wider">Organic Local</div>
+          </div>
+          <div>
+            <div class="font-serif text-3xl md:text-4xl font-bold text-brand-gold">45+</div>
+            <div class="text-xs text-brand-cream/60 mt-1 uppercase tracking-wider">Wine Pairings</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Feature Frame Slide-In Right -->
+      <div class="lg:col-span-6 relative reveal-right">
+        <div class="relative mx-auto max-w-md lg:max-w-none">
+          <div class="glass-card rounded-2xl p-3 shadow-2xl relative z-10 overflow-hidden transform hover:scale-[1.02] transition-transform duration-500">
+            <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1000&q=80" alt="SAVORA Culinary Artistry" class="rounded-xl w-full h-[420px] object-cover" onerror="this.src='https://placehold.co/800x600/12141a/d4af37?text=SAVORA+Plating'"/>
+            <div class="absolute inset-0 bg-gradient-to-t from-brand-black/80 via-transparent to-transparent"></div>
+            <div class="absolute bottom-6 left-6 right-6">
+              <span class="text-xs text-brand-gold uppercase tracking-widest font-semibold">Seasonal Highlight</span>
+              <h3 class="font-serif text-xl font-bold text-white">Smoked Wild Salmon & Caviar Pearls</h3>
+            </div>
+          </div>
+          <div class="absolute -bottom-6 -right-6 w-full h-full border border-brand-gold/30 rounded-2xl -z-10 hidden sm:block"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================================== -->
+  <!-- 3. SIGNATURE MENU SECTION (Interactive)   -->
+  <!-- ========================================== -->
+  <section id="menu" class="relative py-28 px-6 md:px-16 bg-brand-dark/50 border-t border-brand-gold/10 overflow-hidden">
+    <!-- Floating Cloche Cover -->
+    <div class="floating-container top-16 left-6" data-speed="4">
+      <div class="anim-float-3 opacity-40">
+        <svg class="w-20 h-20 text-brand-gold" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M20 65 Q50 20 80 65 Z" fill="rgba(212, 175, 55, 0.1)"/>
+          <line x1="10" y1="68" x2="90" y2="68" stroke-width="3"/>
+          <circle cx="50" cy="22" r="4" fill="#d4af37"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto">
+      <!-- Section Header Reveal Up -->
+      <div class="text-center max-w-3xl mx-auto mb-16 reveal-up">
+        <span class="text-brand-gold text-xs font-semibold tracking-widest uppercase">Culinary Symphony</span>
+        <h2 class="font-serif text-4xl sm:text-5xl md:text-6xl font-bold text-3d-menu mt-2 mb-6">
+          Signature Tasting Menu
+        </h2>
+        <p class="text-brand-cream/70 text-sm sm:text-base font-light">
+          Each dish is an orchestral blend of rare ingredients, harmonious flavors, and expressive visual design.
+        </p>
+
+        <!-- Category Filter Tabs -->
+        <div class="flex flex-wrap justify-center gap-3 mt-10">
+          <button onclick="filterMenu('all')" class="menu-tab active px-6 py-2.5 rounded-full text-xs font-semibold tracking-widest uppercase transition-all bg-brand-gold text-brand-black shadow-md">All Courses</button>
+          <button onclick="filterMenu('appetizers')" class="menu-tab px-6 py-2.5 rounded-full text-xs font-semibold tracking-widest uppercase transition-all bg-brand-card text-brand-cream/80 hover:bg-brand-gold/20 hover:text-brand-gold">Appetizers</button>
+          <button onclick="filterMenu('mains')" class="menu-tab px-6 py-2.5 rounded-full text-xs font-semibold tracking-widest uppercase transition-all bg-brand-card text-brand-cream/80 hover:bg-brand-gold/20 hover:text-brand-gold">Main Courses</button>
+          <button onclick="filterMenu('desserts')" class="menu-tab px-6 py-2.5 rounded-full text-xs font-semibold tracking-widest uppercase transition-all bg-brand-card text-brand-cream/80 hover:bg-brand-gold/20 hover:text-brand-gold">Desserts</button>
+          <button onclick="filterMenu('cocktails')" class="menu-tab px-6 py-2.5 rounded-full text-xs font-semibold tracking-widest uppercase transition-all bg-brand-card text-brand-cream/80 hover:bg-brand-gold/20 hover:text-brand-gold">Cocktails</button>
+        </div>
+      </div>
+
+      <!-- Menu Items Grid with Staggered Scale-In Effect -->
+      <div id="menu-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- Dish 1 -->
+        <div class="menu-item appetizers glass-card rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 reveal-scale">
+          <div>
+            <div class="flex justify-between items-start mb-4">
+              <h3 class="font-serif text-xl font-bold text-brand-cream">Truffle Infused Wagyu Tartare</h3>
+              <span class="font-serif text-lg font-bold text-brand-gold">$42</span>
+            </div>
+            <p class="text-brand-cream/65 text-sm font-light mb-4">
+              Hand-cut A5 Japanese Wagyu, black winter truffle caviar, cured quail egg yolk, house-made brioche crisp.
+            </p>
+          </div>
+          <div class="flex items-center justify-between pt-4 border-t border-brand-cream/10 text-xs text-brand-gold/80">
+            <span>Pairs with Barolo 2017</span>
+            <span class="px-2 py-0.5 rounded bg-brand-gold/10">Chef's Pick</span>
+          </div>
+        </div>
+
+        <!-- Dish 2 -->
+        <div class="menu-item mains glass-card rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 reveal-scale">
+          <div>
+            <div class="flex justify-between items-start mb-4">
+              <h3 class="font-serif text-xl font-bold text-brand-cream">Pan-Seared Chilean Sea Bass</h3>
+              <span class="font-serif text-lg font-bold text-brand-gold">$68</span>
+            </div>
+            <p class="text-brand-cream/65 text-sm font-light mb-4">
+              Saffron dashi broth, baby fennel, pickled sea asparagus, crispy leek nest, lemongrass emulsion.
+            </p>
+          </div>
+          <div class="flex items-center justify-between pt-4 border-t border-brand-cream/10 text-xs text-brand-gold/80">
+            <span>Pairs with Chablis Grand Cru</span>
+            <span class="px-2 py-0.5 rounded bg-brand-accent/20 text-brand-accent font-medium">Gluten-Free</span>
+          </div>
+        </div>
+
+        <!-- Dish 3 -->
+        <div class="menu-item mains glass-card rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 reveal-scale">
+          <div>
+            <div class="flex justify-between items-start mb-4">
+              <h3 class="font-serif text-xl font-bold text-brand-cream">Dry-Aged Duck Breast</h3>
+              <span class="font-serif text-lg font-bold text-brand-gold">$56</span>
+            </div>
+            <p class="text-brand-cream/65 text-sm font-light mb-4">
+              Glazed with dark cherry jus, caramelized parsnip puree, charred rainbow carrots, toasted pistachio dust.
+            </p>
+          </div>
+          <div class="flex items-center justify-between pt-4 border-t border-brand-cream/10 text-xs text-brand-gold/80">
+            <span>Pairs with Pinot Noir 2019</span>
+            <span class="px-2 py-0.5 rounded bg-brand-gold/10">Signature</span>
+          </div>
+        </div>
+
+        <!-- Dish 4 -->
+        <div class="menu-item desserts glass-card rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 reveal-scale">
+          <div>
+            <div class="flex justify-between items-start mb-4">
+              <h3 class="font-serif text-xl font-bold text-brand-cream">Golden Cacao Sphere</h3>
+              <span class="font-serif text-lg font-bold text-brand-gold">$26</span>
+            </div>
+            <p class="text-brand-cream/65 text-sm font-light mb-4">
+              70% Valrhona dark chocolate shell, passion fruit gel, hazelnut praline crunch, warm caramel cascade.
+            </p>
+          </div>
+          <div class="flex items-center justify-between pt-4 border-t border-brand-cream/10 text-xs text-brand-gold/80">
+            <span>Pairs with Vintage Port</span>
+            <span class="px-2 py-0.5 rounded bg-brand-gold/10">Interactive</span>
+          </div>
+        </div>
+
+        <!-- Dish 5 -->
+        <div class="menu-item cocktails glass-card rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 reveal-scale">
+          <div>
+            <div class="flex justify-between items-start mb-4">
+              <h3 class="font-serif text-xl font-bold text-brand-cream">Smoked Rosemary Old Fashioned</h3>
+              <span class="font-serif text-lg font-bold text-brand-gold">$24</span>
+            </div>
+            <p class="text-brand-cream/65 text-sm font-light mb-4">
+              Small-batch bourbon, charred rosemary mist, raw honey syrup, hand-carved ice sphere with edible 24k gold leaf.
+            </p>
+          </div>
+          <div class="flex items-center justify-between pt-4 border-t border-brand-cream/10 text-xs text-brand-gold/80">
+            <span>House Special Spirit</span>
+            <span class="px-2 py-0.5 rounded bg-brand-gold/10">Smoked</span>
+          </div>
+        </div>
+
+        <!-- Dish 6 -->
+        <div class="menu-item appetizers glass-card rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 reveal-scale">
+          <div>
+            <div class="flex justify-between items-start mb-4">
+              <h3 class="font-serif text-xl font-bold text-brand-cream">Wild Morel Mushroom Soup</h3>
+              <span class="font-serif text-lg font-bold text-brand-gold">$30</span>
+            </div>
+            <p class="text-brand-cream/65 text-sm font-light mb-4">
+              Velvety forest mushrooms, thyme foam, black garlic emulsion, sourdough crostini.
+            </p>
+          </div>
+          <div class="flex items-center justify-between pt-4 border-t border-brand-cream/10 text-xs text-brand-gold/80">
+            <span>Pairs with Dry Sherry</span>
+            <span class="px-2 py-0.5 rounded bg-brand-gold/10">Vegetarian</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================================== -->
+  <!-- 4. FRESH INGREDIENTS SHOWCASE             -->
+  <!-- ========================================== -->
+  <section id="ingredients" class="relative py-28 px-6 md:px-16 overflow-hidden">
+    <!-- Floating Chef Toque Hat -->
+    <div class="floating-container bottom-16 right-12" data-speed="-4">
+      <div class="anim-float-1 opacity-40">
+        <svg class="w-16 h-16 text-brand-accent" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M30 70 C15 50 30 30 45 35 C50 20 70 20 75 35 C90 30 105 50 90 70 Z" fill="rgba(230, 81, 0, 0.1)"/>
+          <rect x="30" y="70" width="60" height="12" rx="3" stroke-width="2"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <!-- Visual Grid Slide In Left -->
+        <div class="lg:col-span-6 grid grid-cols-2 gap-4 relative reveal-left">
+          <div class="space-y-4">
+            <div class="glass-card p-2 rounded-2xl overflow-hidden shadow-lg group">
+              <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=600&q=80" alt="Fresh Produce" class="w-full h-48 object-cover rounded-xl group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/12141a/d4af37?text=Herbs'"/>
+            </div>
+            <div class="glass-card p-2 rounded-2xl overflow-hidden shadow-lg group">
+              <img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=600&q=80" alt="Sommelier Wine Selection" class="w-full h-64 object-cover rounded-xl group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/12141a/d4af37?text=Wines'"/>
+            </div>
+          </div>
+          <div class="space-y-4 pt-8">
+            <div class="glass-card p-2 rounded-2xl overflow-hidden shadow-lg group">
+              <img src="https://images.unsplash.com/photo-1608897013039-887f21d8c804?auto=format&fit=crop&w=600&q=80" alt="Artisanal Spices" class="w-full h-64 object-cover rounded-xl group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/12141a/d4af37?text=Spices'"/>
+            </div>
+            <div class="glass-card p-2 rounded-2xl overflow-hidden shadow-lg group">
+              <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=80" alt="Seafood Catch" class="w-full h-48 object-cover rounded-xl group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/12141a/d4af37?text=Seafood'"/>
+            </div>
+          </div>
+        </div>
+
+        <!-- Text Content Slide In Right -->
+        <div class="lg:col-span-6 space-y-6 reveal-right">
+          <span class="text-brand-gold text-xs font-semibold tracking-widest uppercase">Purity in Sourcing</span>
+          <h2 class="font-serif text-4xl sm:text-5xl font-bold text-3d-subtle">
+            Rooted in Earth, <br/>
+            <span class="italic text-brand-gold">Crafted with Purpose</span>
+          </h2>
+          <p class="text-brand-cream/70 text-base leading-relaxed font-light">
+            Great dishes begin long before they reach the kitchen. We partner exclusively with sustainable biodynamic farms, artisanal cheese makers, and small-batch fisheries who share our uncompromising commitment to ethical sourcing and unmatched freshness.
+          </p>
+          
+          <div class="space-y-4 pt-4">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-full bg-brand-gold/10 border border-brand-gold/30 flex items-center justify-center text-brand-gold flex-shrink-0 font-serif font-bold">01</div>
+              <div>
+                <h4 class="font-semibold text-brand-cream text-base">Daily Morning Harvest</h4>
+                <p class="text-xs text-brand-cream/60 mt-1">Herbs and microgreens gathered at dawn from our private greenhouse.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-full bg-brand-gold/10 border border-brand-gold/30 flex items-center justify-center text-brand-gold flex-shrink-0 font-serif font-bold">02</div>
+              <div>
+                <h4 class="font-semibold text-brand-cream text-base">Traceable Origin</h4>
+                <p class="text-xs text-brand-cream/60 mt-1">Every protein and produce item comes with a verified origin heritage track.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-full bg-brand-gold/10 border border-brand-gold/30 flex items-center justify-center text-brand-gold flex-shrink-0 font-serif font-bold">03</div>
+              <div>
+                <h4 class="font-semibold text-brand-cream text-base">Zero-Waste Culinary Art</h4>
+                <p class="text-xs text-brand-cream/60 mt-1">Trimmings are transformed into stocks, ferments, and house-aged glazes.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================================== -->
+  <!-- 5. BEHIND THE KITCHEN                      -->
+  <!-- ========================================== -->
+  <section id="kitchen" class="relative py-28 px-6 md:px-16 bg-brand-dark/40 border-t border-brand-gold/10 overflow-hidden">
+    <!-- Floating Frying Pan -->
+    <div class="floating-container top-12 left-10" data-speed="5">
+      <div class="anim-float-2 opacity-40">
+        <svg class="w-20 h-20 text-brand-gold" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="40" cy="50" r="25" fill="rgba(212, 175, 55, 0.1)"/>
+          <line x1="65" y1="50" x2="95" y2="50" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <!-- Content Column Slide Left -->
+        <div class="lg:col-span-5 space-y-6 reveal-left">
+          <span class="text-brand-gold text-xs font-semibold tracking-widest uppercase">The Brigade</span>
+          <h2 class="font-serif text-4xl sm:text-5xl font-bold text-3d-subtle">
+            Mastery Behind <br/>
+            <span class="italic text-brand-gold">The Flame</span>
+          </h2>
+          <p class="text-brand-cream/70 text-base leading-relaxed font-light">
+            Led by Executive Chef Julian Vance, our kitchen operates as a symphony of synchronized artistry. With experience in three Michelin-starred establishments across Paris, Tokyo, and New York, Chef Vance brings a global perspective grounded in classical discipline.
+          </p>
+
+          <blockquote class="border-l-2 border-brand-gold pl-4 py-1 italic text-brand-cream/80 font-serif text-lg">
+            “Cooking is not merely feeding the body; it is a dialogue between human emotion and nature’s finest creations.”
+          </blockquote>
+
+          <div class="pt-4 flex items-center gap-4">
+            <div class="w-14 h-14 rounded-full overflow-hidden border border-brand-gold">
+              <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&w=200&q=80" alt="Chef Julian Vance" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/200x200/12141a/d4af37?text=Chef'"/>
+            </div>
+            <div>
+              <div class="font-serif font-bold text-brand-cream">Julian Vance</div>
+              <div class="text-xs text-brand-gold">Executive Chef & Founder</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Stage Slide Right -->
+        <div class="lg:col-span-7 relative reveal-right">
+          <div class="glass-card rounded-2xl p-4 shadow-2xl overflow-hidden relative group">
+            <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1200&q=80" alt="Kitchen Prep" class="w-full h-[450px] object-cover rounded-xl group-hover:scale-105 transition-transform duration-700" onerror="this.src='https://placehold.co/1200x800/12141a/d4af37?text=Kitchen+Action'"/>
+            <div class="absolute inset-0 bg-gradient-to-t from-brand-black/90 via-brand-black/20 to-transparent"></div>
+            
+            <div class="absolute bottom-8 left-8 right-8 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
+              <div>
+                <span class="px-3 py-1 rounded-full bg-brand-gold/20 text-brand-gold text-xs font-semibold tracking-wider uppercase mb-2 inline-block">Live Theater</span>
+                <h3 class="font-serif text-2xl font-bold text-white">Open Kitchen Experience</h3>
+                <p class="text-xs text-brand-cream/70 mt-1 max-w-sm">Watch our team transform raw ingredients into culinary art in our open theater seating.</p>
+              </div>
+              <button onclick="openModal('kitchen-modal')" class="px-5 py-2.5 rounded-full bg-brand-cream/10 hover:bg-brand-gold text-brand-cream hover:text-brand-black text-xs font-semibold tracking-widest uppercase transition-all backdrop-blur-md border border-brand-cream/20">
+                View Kitchen Gallery
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================================== -->
+  <!-- 6. AMBIANCE & EXPERIENCE SHOWCASE          -->
+  <!-- ========================================== -->
+  <section id="experience" class="relative py-28 px-6 md:px-16 overflow-hidden">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center max-w-3xl mx-auto mb-16 reveal-up">
+        <span class="text-brand-gold text-xs font-semibold tracking-widest uppercase">Intimate Atmosphere</span>
+        <h2 class="font-serif text-4xl sm:text-5xl font-bold text-3d-subtle mt-2 mb-4">
+          Designed for Unforgettable Evenings
+        </h2>
+        <p class="text-brand-cream/70 text-sm sm:text-base font-light">
+          Warm ambient lighting, custom acoustic damping, soft velvet seating, and tailored music curation.
+        </p>
+      </div>
+
+      <!-- Experience Cards Grid with Dynamic Entrance -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Card 1 -->
+        <div class="glass-card rounded-2xl overflow-hidden group reveal-up">
+          <div class="h-64 overflow-hidden relative">
+            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80" alt="Main Dining Room" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" onerror="this.src='https://placehold.co/800x600/12141a/d4af37?text=Main+Dining'"/>
+            <div class="absolute inset-0 bg-brand-black/30 group-hover:bg-brand-black/10 transition-colors"></div>
+          </div>
+          <div class="p-6">
+            <h3 class="font-serif text-xl font-bold text-brand-cream mb-2">Main Dining Salon</h3>
+            <p class="text-xs text-brand-cream/65 leading-relaxed font-light mb-4">
+              Spacious seating under hand-blown glass chandeliers, perfect for celebratory dinners and intimate gatherings.
+            </p>
+            <span class="text-xs text-brand-gold font-semibold tracking-wider uppercase">Cap: 60 Guests</span>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="glass-card rounded-2xl overflow-hidden group reveal-up">
+          <div class="h-64 overflow-hidden relative">
+            <img src="https://images.unsplash.com/photo-1578474846511-04ba529f0b88?auto=format&fit=crop&w=800&q=80" alt="Private Cellar Dining" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" onerror="this.src='https://placehold.co/800x600/12141a/d4af37?text=Private+Cellar'"/>
+            <div class="absolute inset-0 bg-brand-black/30 group-hover:bg-brand-black/10 transition-colors"></div>
+          </div>
+          <div class="p-6">
+            <h3 class="font-serif text-xl font-bold text-brand-cream mb-2">The Sommelier’s Cellar</h3>
+            <p class="text-xs text-brand-cream/65 leading-relaxed font-light mb-4">
+              Secluded dining room surrounded by 2,000 vintage bottles, dedicated personal sommelier service.
+            </p>
+            <span class="text-xs text-brand-gold font-semibold tracking-wider uppercase">Cap: 12 Guests (Private)</span>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="glass-card rounded-2xl overflow-hidden group reveal-up">
+          <div class="h-64 overflow-hidden relative">
+            <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=800&q=80" alt="Cocktail Lounge" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" onerror="this.src='https://placehold.co/800x600/12141a/d4af37?text=Lounge'"/>
+            <div class="absolute inset-0 bg-brand-black/30 group-hover:bg-brand-black/10 transition-colors"></div>
+          </div>
+          <div class="p-6">
+            <h3 class="font-serif text-xl font-bold text-brand-cream mb-2">Aura Cocktail Lounge</h3>
+            <p class="text-xs text-brand-cream/65 leading-relaxed font-light mb-4">
+              Pre-dinner aperture drinks and late-night digestive spirits paired with artisanal tapas and jazz acoustics.
+            </p>
+            <span class="text-xs text-brand-gold font-semibold tracking-wider uppercase">Walk-ins Welcome</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================================== -->
+  <!-- 7. RESERVATION CTA SECTION                 -->
+  <!-- ========================================== -->
+  <section id="reservation-cta" class="relative py-24 px-6 md:px-16 bg-gradient-to-b from-brand-dark to-brand-black border-t border-brand-gold/20 overflow-hidden">
+    <!-- Floating Cutlery -->
+    <div class="floating-container top-10 right-16" data-speed="3">
+      <div class="anim-float-3 opacity-30">
+        <svg class="w-24 h-24 text-brand-gold" viewBox="0 0 100 100" fill="currentColor">
+          <path d="M30 10 L35 40 L38 40 L40 10 L44 10 L42 40 L45 40 L50 10 L53 10 L48 50 L44 90 L36 90 L32 50 L27 10 Z"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto text-center relative z-10 space-y-8 reveal-scale">
+      <span class="text-brand-gold text-xs font-semibold tracking-widest uppercase">Secure Your Table</span>
+      <h2 class="font-serif text-4xl sm:text-6xl font-extrabold text-3d-hero">
+        Begin Your Culinary Journey
+      </h2>
+      <p class="text-brand-cream/80 text-base sm:text-lg font-light max-w-2xl mx-auto">
+        Reservations open 30 days in advance. For private dining events or special dietary requests, please contact our concierge team.
+      </p>
+
+      <div class="pt-4 flex flex-col sm:flex-row justify-center gap-4">
+        <button onclick="openModal('reservation-modal')" class="px-10 py-4 rounded-full bg-brand-gold hover:bg-brand-goldHover text-brand-black font-semibold text-sm tracking-widest uppercase transition-all shadow-2xl hover:scale-105">
+          Reserve Online Now
+        </button>
+        <a href="tel:+18005557286" class="px-8 py-4 rounded-full bg-brand-card hover:bg-brand-cream/10 border border-brand-cream/20 text-brand-cream font-semibold text-sm tracking-widest uppercase transition-all flex items-center justify-center gap-2">
+          <svg class="w-4 h-4 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+          Direct Concierge Line
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================================== -->
+  <!-- 8. PREMIUM MULTI-COLUMN FOOTER             -->
+  <!-- ========================================== -->
+  <footer class="relative bg-brand-black text-brand-cream pt-24 pb-12 border-t border-brand-gold/20 overflow-hidden">
+    <div class="floating-container bottom-10 left-8 pointer-events-none" data-speed="-2">
+      <div class="anim-float-1 opacity-20">
+        <svg class="w-36 h-36 text-brand-gold" viewBox="0 0 100 100" fill="none" stroke="currentColor">
+          <path d="M30 40 Q50 25 70 40 L75 65 Q50 85 25 65 Z" stroke-width="2"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 md:px-16 relative z-10">
+      
+      <!-- Top Branding Stage -->
+      <div class="pb-16 border-b border-brand-cream/10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-end reveal-up">
+        <div class="lg:col-span-8 space-y-4">
+          <div class="flex items-center gap-3">
+            <svg class="w-10 h-10 text-brand-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="9"/>
+              <circle cx="12" cy="12" r="3" fill="#d4af37"/>
+            </svg>
+            <span class="font-serif text-3xl font-bold tracking-widest text-brand-cream">SAVORA</span>
+          </div>
+          <h3 class="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-3d-subtle text-brand-cream">
+            Good Food. <span class="italic text-brand-gold">Memorable Moments.</span>
+          </h3>
+          <p class="text-brand-cream/60 text-sm max-w-xl font-light leading-relaxed">
+            An extraordinary culinary sanctuary designed for connoisseurs of flavor, fine wine, and immersive sensory dining experiences.
+          </p>
+        </div>
+
+        <!-- Newsletter Box -->
+        <div class="lg:col-span-4 glass-card p-6 rounded-2xl">
+          <h4 class="font-serif text-lg font-bold text-brand-cream mb-2">Join the Epicurean Circle</h4>
+          <p class="text-xs text-brand-cream/60 mb-4 font-light">Receive invitations to secret tasting menus and wine release previews.</p>
+          <form onsubmit="handleNewsletterSubmit(event)" class="flex flex-col sm:flex-row gap-2">
+            <input type="email" required placeholder="Enter your email address" class="w-full px-4 py-2.5 rounded-full bg-brand-dark/80 border border-brand-cream/20 text-xs text-brand-cream focus:outline-none focus:border-brand-gold"/>
+            <button type="submit" class="px-5 py-2.5 rounded-full bg-brand-gold hover:bg-brand-goldHover text-brand-black text-xs font-semibold tracking-wider uppercase transition-all flex-shrink-0">
+              Subscribe
+            </button>
+          </form>
+          <span class="text-[10px] text-brand-cream/40 mt-2 block">Demo form — No spam. Unsubscribe anytime.</span>
+        </div>
+      </div>
+
+      <!-- Main Footer Columns Grid -->
+      <div class="py-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 reveal-up">
+        
+        <!-- Column 1: Explore Nav -->
+        <div class="space-y-4">
+          <h4 class="font-serif text-base font-bold text-brand-gold uppercase tracking-wider">Explore</h4>
+          <ul class="space-y-2 text-xs font-light text-brand-cream/70">
+            <li><a href="#hero" class="hover:text-brand-gold transition-colors inline-block hover:translate-x-1 transition-transform">Home Overview</a></li>
+            <li><a href="#philosophy" class="hover:text-brand-gold transition-colors inline-block hover:translate-x-1 transition-transform">Our Craft & Philosophy</a></li>
+            <li><a href="#menu" class="hover:text-brand-gold transition-colors inline-block hover:translate-x-1 transition-transform">Signature Tasting Menu</a></li>
+            <li><a href="#ingredients" class="hover:text-brand-gold transition-colors inline-block hover:translate-x-1 transition-transform">Fresh Organic Sourcing</a></li>
+            <li><a href="#kitchen" class="hover:text-brand-gold transition-colors inline-block hover:translate-x-1 transition-transform">Behind the Kitchen</a></li>
+            <li><a href="#experience" class="hover:text-brand-gold transition-colors inline-block hover:translate-x-1 transition-transform">Dining Ambience</a></li>
+            <li><a href="#reservation-cta" class="hover:text-brand-gold transition-colors inline-block hover:translate-x-1 transition-transform">Table Reservations</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 2: Dining Information -->
+        <div class="space-y-4">
+          <h4 class="font-serif text-base font-bold text-brand-gold uppercase tracking-wider">Dining Hours</h4>
+          <div class="space-y-3 text-xs text-brand-cream/70 font-light">
+            <div>
+              <div class="font-medium text-brand-cream">Dinner Service</div>
+              <div>Tuesday – Sunday: 5:30 PM – 11:00 PM</div>
+            </div>
+            <div>
+              <div class="font-medium text-brand-cream">Aura Lounge & Cocktails</div>
+              <div>Tuesday – Sunday: 4:30 PM – 1:00 AM</div>
+            </div>
+            <div>
+              <div class="font-medium text-brand-cream">Monday</div>
+              <div class="text-brand-gold/80 italic">Closed for Private Events</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 3: Contact & Location -->
+        <div class="space-y-4">
+          <h4 class="font-serif text-base font-bold text-brand-gold uppercase tracking-wider">Location & Contact</h4>
+          <ul class="space-y-3 text-xs text-brand-cream/70 font-light">
+            <li class="flex items-start gap-2">
+              <svg class="w-4 h-4 text-brand-gold flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              <span>450 Grand Avenue, Culinary District, NY 10013</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-brand-gold flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+              <span>+1 (800) 555-SAVORA</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-brand-gold flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+              <span>concierge@savora-restaurant.com</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Column 4: FAQs & Socials -->
+        <div class="space-y-4">
+          <h4 class="font-serif text-base font-bold text-brand-gold uppercase tracking-wider">Connect & Policies</h4>
+          <p class="text-xs text-brand-cream/60 font-light">
+            Dress Code: Elegant Smart Casual. Valet parking available at main entrance.
+          </p>
+          <div class="flex gap-3 pt-2">
+            <!-- Social Icons -->
+            <a href="#" class="w-9 h-9 rounded-full bg-brand-card hover:bg-brand-gold hover:text-brand-black border border-brand-cream/10 flex items-center justify-center transition-colors" aria-label="Instagram">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <a href="#" class="w-9 h-9 rounded-full bg-brand-card hover:bg-brand-gold hover:text-brand-black border border-brand-cream/10 flex items-center justify-center transition-colors" aria-label="Facebook">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.5 5 15.5 5H18V0h-3.808C10.592 0 9 1.583 9 4.615V8z"/></svg>
+            </a>
+            <a href="#" class="w-9 h-9 rounded-full bg-brand-card hover:bg-brand-gold hover:text-brand-black border border-brand-cream/10 flex items-center justify-center transition-colors" aria-label="YouTube">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="pt-8 border-t border-brand-cream/10 flex flex-col md:flex-row justify-between items-center text-xs font-light text-brand-cream/50 gap-4">
+        <div>&copy; 2026 SAVORA Luxury Dining Group. All rights reserved.</div>
+        <div class="flex flex-wrap gap-6">
+          <a href="#" class="hover:text-brand-gold transition-colors">Privacy Policy</a>
+          <a href="#" class="hover:text-brand-gold transition-colors">Terms of Service</a>
+          <a href="#" class="hover:text-brand-gold transition-colors">Accessibility Statement</a>
+          <a href="#" class="hover:text-brand-gold transition-colors">Cookie Preferences</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+
+  <!-- ========================================== -->
+  <!-- MODAL: INTERACTIVE RESERVATION SYSTEM     -->
+  <!-- ========================================== -->
+  <div id="reservation-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-brand-black/80 backdrop-blur-md">
+    <div class="glass-card w-full max-w-xl rounded-3xl p-8 relative shadow-2xl border border-brand-gold/30">
+      <button onclick="closeModal('reservation-modal')" class="absolute top-6 right-6 text-brand-cream/60 hover:text-brand-gold focus:outline-none">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+
+      <div class="text-center mb-6">
+        <span class="text-brand-gold text-xs font-semibold tracking-widest uppercase">Reserve A Table</span>
+        <h3 class="font-serif text-2xl font-bold text-brand-cream mt-1">SAVORA Tasting Experience</h3>
+      </div>
+
+      <form onsubmit="handleReservationSubmit(event)" class="space-y-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs text-brand-cream/70 mb-1">Full Name</label>
+            <input type="text" required placeholder="Lord/Lady Smith" class="w-full px-4 py-2.5 rounded-xl bg-brand-dark border border-brand-cream/20 text-xs text-brand-cream focus:outline-none focus:border-brand-gold"/>
+          </div>
+          <div>
+            <label class="block text-xs text-brand-cream/70 mb-1">Phone Number</label>
+            <input type="tel" required placeholder="+1 (555) 000-0000" class="w-full px-4 py-2.5 rounded-xl bg-brand-dark border border-brand-cream/20 text-xs text-brand-cream focus:outline-none focus:border-brand-gold"/>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div>
+            <label class="block text-xs text-brand-cream/70 mb-1">Date</label>
+            <input type="date" required class="w-full px-3 py-2.5 rounded-xl bg-brand-dark border border-brand-cream/20 text-xs text-brand-cream focus:outline-none focus:border-brand-gold"/>
+          </div>
+          <div>
+            <label class="block text-xs text-brand-cream/70 mb-1">Time</label>
+            <select class="w-full px-3 py-2.5 rounded-xl bg-brand-dark border border-brand-cream/20 text-xs text-brand-cream focus:outline-none focus:border-brand-gold">
+              <option>5:30 PM</option>
+              <option>6:45 PM</option>
+              <option>8:00 PM</option>
+              <option>9:15 PM</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs text-brand-cream/70 mb-1">Guests</label>
+            <select class="w-full px-3 py-2.5 rounded-xl bg-brand-dark border border-brand-cream/20 text-xs text-brand-cream focus:outline-none focus:border-brand-gold">
+              <option>2 Guests</option>
+              <option>4 Guests</option>
+              <option>6 Guests</option>
+              <option>Private Dining (8+)</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs text-brand-cream/70 mb-1">Dietary Preferences or Requests</label>
+          <textarea rows="2" placeholder="e.g. Vegetarian pairing, anniversary celebration..." class="w-full px-4 py-2.5 rounded-xl bg-brand-dark border border-brand-cream/20 text-xs text-brand-cream focus:outline-none focus:border-brand-gold"></textarea>
+        </div>
+
+        <button type="submit" class="w-full py-3.5 rounded-xl bg-brand-gold hover:bg-brand-goldHover text-brand-black font-semibold text-xs tracking-widest uppercase transition-all shadow-lg mt-2">
+          Confirm Reservation Request
+        </button>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- ========================================== -->
+  <!-- MODAL: KITCHEN GALLERY PREVIEW             -->
+  <!-- ========================================== -->
+  <div id="kitchen-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-brand-black/90 backdrop-blur-md">
+    <div class="glass-card w-full max-w-3xl rounded-3xl p-6 relative">
+      <button onclick="closeModal('kitchen-modal')" class="absolute top-6 right-6 text-brand-cream/60 hover:text-brand-gold">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+
+      <h3 class="font-serif text-2xl font-bold text-brand-cream mb-4">Behind the Scenes at SAVORA</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80" class="rounded-xl w-full h-48 object-cover" alt="Plating Detail" onerror="this.src='https://placehold.co/600x400/12141a/d4af37?text=Kitchen+1'"/>
+        <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&w=600&q=80" class="rounded-xl w-full h-48 object-cover" alt="Chef Team" onerror="this.src='https://placehold.co/600x400/12141a/d4af37?text=Kitchen+2'"/>
+      </div>
+      <p class="text-xs text-brand-cream/70 mt-4 leading-relaxed">
+        Our kitchen uses custom charcoal hearths, sous-vide precision baths, and hyper-saline curing chambers to yield unmatched flavor profiles.
+      </p>
+    </div>
+  </div>
+
+
+  <!-- ========================================== -->
+  <!-- NOTIFICATION TOAST                         -->
+  <!-- ========================================== -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 hidden bg-brand-gold text-brand-black px-6 py-3 rounded-full shadow-2xl font-semibold text-xs tracking-wider uppercase transition-all transform translate-y-10 opacity-0">
+    <span id="toast-message">Action completed successfully.</span>
+  </div>
+
+
+  <!-- ========================================== -->
+  <!-- JAVASCRIPT LOGIC                           -->
+  <!-- ========================================== -->
+  <script>
+    // ----------------------------------------------------
+    // 1. Cursor Attached Floating "MOVE" Badge Tracking
+    // ----------------------------------------------------
+    const cursorBadge = document.getElementById('cursor-move-badge');
+    let clientX = -100, clientY = -100;
+    let badgeX = -100, badgeY = -100;
+
+    window.addEventListener('mousemove', (e) => {
+      clientX = e.clientX;
+      clientY = e.clientY;
+    });
+
+    function renderCursorBadge() {
+      // Smooth lerp tracking to follow cursor naturally
+      badgeX += (clientX - badgeX) * 0.15;
+      badgeY += (clientY - badgeY) * 0.15;
+
+      if (cursorBadge) {
+        cursorBadge.style.transform = `translate3d(${badgeX}px, ${badgeY}px, 0px) translate(-50%, -50%)`;
+      }
+      requestAnimationFrame(renderCursorBadge);
+    }
+    renderCursorBadge();
+
+
+    // ----------------------------------------------------
+    // 2. Mouse Tilt & Parallax Physics Engine
+    // ----------------------------------------------------
+    const heroHeadline = document.getElementById('hero-headline');
+    const floatingContainers = document.querySelectorAll('.floating-container');
+
+    let mouseX = 0, mouseY = 0;
+    let targetX = 0, targetY = 0;
+
+    window.addEventListener('mousemove', (e) => {
+      // Screen-centered normalized mouse coordinates (-1 to 1)
+      mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+      mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+    });
+
+    function renderParallax() {
+      targetX += (mouseX - targetX) * 0.08;
+      targetY += (mouseY - targetY) * 0.08;
+
+      if (heroHeadline) {
+        const rotateX = targetY * -15;
+        const rotateY = targetX * 15;
+        heroHeadline.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(30px)`;
+      }
+
+      floatingContainers.forEach(container => {
+        const speed = parseFloat(container.getAttribute('data-speed') || 3);
+        const moveX = targetX * speed * 25;
+        const moveY = targetY * speed * 25;
+        container.style.transform = `translate3d(${moveX}px, ${moveY}px, 0px)`;
+      });
+
+      requestAnimationFrame(renderParallax);
+    }
+    renderParallax();
+
+
+    // ----------------------------------------------------
+    // 3. Scroll Reveal Animations (Elementor-Style Observer)
+    // ----------------------------------------------------
+    const revealElements = document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right, .reveal-scale');
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('reveal-active');
+        }
+      });
+    }, {
+      threshold: 0.15,
+      rootMargin: "0px 0px -50px 0px"
+    });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+
+    // ----------------------------------------------------
+    // 4. Scroll Navbar Transitions
+    // ----------------------------------------------------
+    const navbar = document.getElementById('navbar');
+
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+
+      if (scrollY > 50) {
+        navbar.classList.add('bg-brand-black/90', 'backdrop-blur-md', 'border-brand-gold/15', 'shadow-2xl', 'py-3');
+        navbar.classList.remove('py-5', 'border-transparent');
+      } else {
+        navbar.classList.remove('bg-brand-black/90', 'backdrop-blur-md', 'border-brand-gold/15', 'shadow-2xl', 'py-3');
+        navbar.classList.add('py-5', 'border-transparent');
+      }
+    });
+
+
+    // ----------------------------------------------------
+    // 5. Interactive Menu Filter Tabs
+    // ----------------------------------------------------
+    function filterMenu(category) {
+      const items = document.querySelectorAll('.menu-item');
+      const tabs = document.querySelectorAll('.menu-tab');
+
+      tabs.forEach(tab => {
+        tab.classList.remove('bg-brand-gold', 'text-brand-black');
+        tab.classList.add('bg-brand-card', 'text-brand-cream/80');
+      });
+
+      event.target.classList.remove('bg-brand-card', 'text-brand-cream/80');
+      event.target.classList.add('bg-brand-gold', 'text-brand-black');
+
+      items.forEach(item => {
+        if (category === 'all' || item.classList.contains(category)) {
+          item.style.display = 'flex';
+          setTimeout(() => {
+            item.style.opacity = '1';
+            item.style.transform = 'translateY(0) scale(1)';
+          }, 50);
+        } else {
+          item.style.opacity = '0';
+          item.style.transform = 'translateY(10px) scale(0.95)';
+          setTimeout(() => {
+            item.style.display = 'none';
+          }, 200);
+        }
+      });
+    }
+
+
+    // ----------------------------------------------------
+    // 6. Modal & Mobile Navigation
+    // ----------------------------------------------------
+    function openModal(id) {
+      document.getElementById(id).classList.remove('hidden');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.add('hidden');
+    }
+
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+      menu.classList.toggle('flex');
+    }
+
+
+    // ----------------------------------------------------
+    // 7. Form Submissions & Toast Alerts
+    // ----------------------------------------------------
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toast-message');
+      toastMsg.textContent = message;
+
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.remove('translate-y-10', 'opacity-0');
+      }, 10);
+
+      setTimeout(() => {
+        toast.classList.add('translate-y-10', 'opacity-0');
+        setTimeout(() => toast.classList.add('hidden'), 300);
+      }, 4000);
+    }
+
+    function handleReservationSubmit(e) {
+      e.preventDefault();
+      closeModal('reservation-modal');
+      showToast('Reservation Request Sent! Our Sommelier will contact you shortly.');
+    }
+
+    function handleNewsletterSubmit(e) {
+      e.preventDefault();
+      e.target.reset();
+      showToast('Welcome to the SAVORA Epicurean Circle.');
+    }
+  </script>
+</body>
+</html>
